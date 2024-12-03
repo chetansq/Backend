@@ -92,7 +92,8 @@ ADDRESS2 varchar(30),
 CITY varchar(15),
 PINCODE varchar(8),
 STATE varchar(15),
-BALDUE numeric(10,2)
+BALDUE numeric(10,2),
+
  );
 
 
@@ -418,4 +419,74 @@ mysql> select * from client_master;
 | C00004   | Ashwini Joshi | shrdha       | kamrej     | Bangalore | 560001  | Karnatka    |    0.00 |
 | C00005   | Hansel Colaco | varj bhumi   | katargam   | Bangalore | 400060  | Maharashtra | 2000.00 |
 | C00006   | Deepak Sharma | deepmala     | bhutbhvani | Bangalore | 560050  | Karnatka    |    0.00 |
-+----------+---------------+--------------+------------+-----------+---------+-------------+---------+          
++----------+---------------+--------------+------------+-----------+---------+-------------+---------+      
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+create database exercises2
+
+-- CLIENT_MASTER
+
+ create table CLIENT_MASTER (
+clientNo varchar(6) primary key,
+name varchar(20),
+address1 varchar(30),
+address2 varchar(30),
+city varchar(15),
+pincode varchar(8),
+state varchar(15),
+baldu numeric(10,2),
+check (clientNo like 'C%')
+ );
+
+ insert into client_master values("C00001","Ivan Bayross","mota varacha","surat","Mumbai","400054","Maharashtra",15000);
+insert into client_master values("C00002","Mamta Muzumdar","vijaybger","yogichok","Madras","780001","Tamil Nadu",0);
+insert into client_master values("C00003","Chhaya Bankar","gitanger","punagam","Mumbai","400057","Maharashtra",5000);
+insert into client_master values("C00004","Ashwini Joshi","shrdha","kamrej","Bangalore","560001","Karnatka",0);
+insert into client_master values("C00005","Hansel Colaco","varj bhumi","katargam","Mumbai","400060","Maharashtra",2000);
+insert into client_master values("C00006","Deepak Sharma","deepmala","bhutbhvani","Mangalore","560050","Karnatka",0);
+
+-- Error
+
+mysql> insert into client_master values("100007","Deepak Sharma","deepmala","bhutbhvani","Mangalore","560050","Karnatka",0);
+ERROR 3819 (HY000): Check constraint 'client_master_chk_1' is violated.
+mysql> insert into client_master values("p00007","Deepak Sharma","deepmala","bhutbhvani","Mangalore","560050","Karnatka",0);
+ERROR 3819 (HY000): Check constraint 'client_master_chk_1' is violated.
+
+mysql> insert into client_master values("c00007","Deepak Sharma","deepmala","bhutbhvani","Mangalore","560050","Karnatka",0);
+Query OK, 1 row affected (0.01 sec)
+
+
+--  PRODUCT_MASTER
+
+create table PRODUCT_MASTER (
+productNo varchar(6),
+description varchar(15),
+profitprecent numeric(4,2),
+unitmeasure varchar(10),
+qtyonhand numeric(8),
+reorderlvl numeric(8),
+sellprice numeric(8,2),
+baldue numeric(8,2),
+check (productNo like "P%"),
+check(sellprice > 0),
+check(baldue > 0)
+ );
+
+ insert into product_master values("P00001","T-Shirt",5,"Piece",200,50,350,250);
+  insert into product_master values("P0345","Shirt",6,"Piece",150,50,500,350);
+  insert into product_master values("P03453","T-Shirt",5,"Piece",250,50,500,350);
+  insert into product_master values("P06734","Cotton Jeans",5,"Piece",100,20,600,450);
+
+-- Error
+
+  mysql>   insert into product_master values("P06734","Cotton Jeans",5,"Piece",100,20,0,70);
+ERROR 3819 (HY000): Check constraint 'product_master_chk_2' is violated.
+mysql>   insert into product_master values("P06734","Cotton Jeans",5,"Piece",100,20,0,0);
+ERROR 3819 (HY000): Check constraint 'product_master_chk_2' is violated.
+mysql>   insert into product_master values("P06745","Cotton Jeans",5,"Piece",100,20,0,0);
+ERROR 3819 (HY000): Check constraint 'product_master_chk_2' is violated.
+
+mysql>   insert into product_master values("P06745","Cotton Jeans",5,"Piece",100,20,560,80);
