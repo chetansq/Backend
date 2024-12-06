@@ -537,16 +537,71 @@ b. Find out the products and their quantities that will have to be delivered in 
 
 ==>
 
-select ,description 
+-- select name,description 
+-- from product_master pm
+-- inner join sales_order_details sod on sod.product_no = pm.product_no
+-- inner join client_master 
+-- where  name = 'Ivan Bayross';
+
+
+........................................................................................
+c. List the ProductNo and description of constantly sold (i.e. rapidly moving) products.
+........................................................................................
+
+==>
+
+select sales_order_details.product_no,description 
+from product_master,sales_order_details ;
+
+-- inner join sales_order_details sod on sod.product_no = pm.product_no;
+
++------------+--------------+
+| product_no | description  |
++------------+--------------+
+| P00001     | T-Shirts     |
+| P00001     | T-Shirts     |
+| P00001     | T-Shirts     |
+| P00001     | T-Shirts     |
+| P0345      | Shirts       |
+| P06734     | Cotton Jeans |
+| P07868     | Trousers     |
+| P07885     | Pull Overs   |
+| P07885     | Pull Overs   |
+| P07965     | Denim Shirts |
+| P07965     | Denim Shirts |
+| P07975     | Lycra Tops   |
+| P08865     | Skirts       |
++------------+--------------+
+
+
+...........................................................
+d.Find the names of clients who have purchased "Trousers".
+...........................................................
+
+==>
+
+select name,description 
 from product_master pm
 inner join sales_order_details sod on sod.product_no = pm.product_no
-inner join client_master 
-where  name = 'Ivan Bayross';
+inner join sales_order so on sod.order_no = so.order_no 
+inner join client_master cm on cm.client_no = so.client_no 
+where  description = 'trousers';
 
 
-c. List the ProductNo and description of constantly sold (i.e. rapidly moving) products.
-d.Find the names of clients who have purchased "Trousers".
++---------------+-------------+
+| name          | description |
++---------------+-------------+
+| Chhaya Bankar | Trousers    |
++---------------+-------------+
+
+
+................................................................................................
 e.List the products and orders from customers who have ordered less than 5 units of 'Pull Overs'.
+................................................................................................
+
+
+
+
 f. Find the products and their quantities for the orders placed by 'Ivan Bayross' and 'Mamta Muzumdar'.
 g. Find the products and their quantities for the orders placed by ClientNo 'C00001' and 'C00002'.
 

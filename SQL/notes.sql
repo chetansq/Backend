@@ -443,7 +443,17 @@ select * from client_master;
 +-----------+----------------+----------+----------+-----------+---------+-------------+----------+
 6 rows in set (0.00 sec)
 
- 
+ create table product_master(
+    product_no varchar(6) primary key,
+    description varchar(15),
+    profit_percent numeric(4,2),
+    unit_mesure varchar(10),
+    qty_on_hand numeric(8),
+    reoder_lvl numeric(8),
+    sell_price numeric(8,2),
+    cost_price numeric(8,2)
+    );
+
 
 desc product_master;
 +----------------+--------------+------+-----+---------+-------+
@@ -606,7 +616,7 @@ insert into sales_order_details values('O46865', 'P07868', 3, 3, 3150);
 insert into sales_order_details values('O46865', 'P07885', 3, 1, 5250);
 insert into sales_order_details values('O46865', 'P00001', 10, 10, 525);
 insert into sales_order_details values('O46865', 'P0345', 4, 4, 1050);
-insert into sales_order_details values('O19003', 'P03453', 2, 2, 1050);
+insert into sales_order_details values('O19003', 'P08865', 2, 2, 1050);
 insert into sales_order_details values('O19003', 'P06734', 1, 1, 12000);
 insert into sales_order_details values('O46866', 'P07965', 1, 0, 8400);
 insert into sales_order_details values('O19008', 'P00001', 10, 5, 525);
