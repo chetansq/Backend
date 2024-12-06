@@ -630,16 +630,6 @@ select * from sales_order_details;
 -- | O19008   | P07975     |           5 |        3 |      1050.00 |
 -- +----------+------------+-------------+----------+--------------+
 
-------- ANSI style --------
-
--- SYNTAX :-
-
-select <col-name1> ,<col-name2>,<col-name N>
-from <tb-name1> 
-inner join <tb-name2>
-on <tb-name1>.<col-name1> = <tb-name2>.<col-name2>
-where <condition>
-order by <col-name1>,<col-name2>,<col-name N >
 
 
 ------- Theta style --------
@@ -755,6 +745,47 @@ where salesman_master.salesman_no = sales_order.salesman_no;
 | Ashish        | S00004      | In Process   |
 +---------------+-------------+--------------+
 7 rows in set (0.00 sec)
+
+
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
+-- 06-12-24 friday
+
+.............................ANSI style........................
+
+
+-- SYNTAX :-
+
+select <col-name1> ,<col-name2>,<col-name N>
+from <tb-name1> 
+inner join <tb-name2>
+on <tb-name1>.<col-name1> = <tb-name2>.<col-name2>
+where <condition>
+order by <col-name1>,<col-name2>,<col-name N >
+
+-- another :-
+
+select * 
+from <tb-1> inner join <tb-2> on <expression>;
+
+
+-- EXAMPLE : -
+
+select * 
+from product_master pm
+inner join sales_order_details sod on sod.product_no = pm.product_no
+inner join sales_order so on sod.order_no = so.order_no
+inner join client_master cm on so.client_no = cm.client_no;
+
+
+select description,product_rate 
+from product_master pm
+inner join sales_order_details sod on sod.product_no = pm.product_no;
+-- inner join sales_order so on sod.order_no = so.order_no
+-- inner join client_master cm on so.client_no = cm.client_no;
+
+
 
 
 

@@ -490,3 +490,63 @@ mysql>   insert into product_master values("P06745","Cotton Jeans",5,"Piece",100
 ERROR 3819 (HY000): Check constraint 'product_master_chk_2' is violated.
 
 mysql>   insert into product_master values("P06745","Cotton Jeans",5,"Piece",100,20,560,80);
+
+
+
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
+-- 06-12-24 friday
+
+2. Exercises on Joins and Correlation:
+
+................................................................
+a. Find out the products, which have been sold to 'Ivan Bayross'.
+................................................................
+
+==>
+
+select name,description 
+from product_master pm
+inner join sales_order_details sod on sod.product_no = pm.product_no
+inner join client_master 
+where  name = 'Ivan Bayross';
+
+
++--------------+--------------+
+| name         | description  |
++--------------+--------------+
+| Ivan Bayross | T-Shirts     |
+| Ivan Bayross | T-Shirts     |
+| Ivan Bayross | T-Shirts     |
+| Ivan Bayross | T-Shirts     |
+| Ivan Bayross | Shirts       |
+| Ivan Bayross | Cotton Jeans |
+| Ivan Bayross | Trousers     |
+| Ivan Bayross | Pull Overs   |
+| Ivan Bayross | Pull Overs   |
+| Ivan Bayross | Denim Shirts |
+| Ivan Bayross | Denim Shirts |
+| Ivan Bayross | Lycra Tops   |
+| Ivan Bayross | Skirts       |
++--------------+--------------+
+
+.................................................................................................
+b. Find out the products and their quantities that will have to be delivered in the current month.
+.................................................................................................
+
+==>
+
+select ,description 
+from product_master pm
+inner join sales_order_details sod on sod.product_no = pm.product_no
+inner join client_master 
+where  name = 'Ivan Bayross';
+
+
+c. List the ProductNo and description of constantly sold (i.e. rapidly moving) products.
+d.Find the names of clients who have purchased "Trousers".
+e.List the products and orders from customers who have ordered less than 5 units of 'Pull Overs'.
+f. Find the products and their quantities for the orders placed by 'Ivan Bayross' and 'Mamta Muzumdar'.
+g. Find the products and their quantities for the orders placed by ClientNo 'C00001' and 'C00002'.
+
