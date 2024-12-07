@@ -498,6 +498,9 @@ mysql>   insert into product_master values("P06745","Cotton Jeans",5,"Piece",100
 
 -- 06-12-24 friday
 
+
+////////////// ... ANSI STYLE ... \\\\\\\\\\\\\\\\
+
 2. Exercises on Joins and Correlation:
 
 ................................................................
@@ -550,10 +553,10 @@ c. List the ProductNo and description of constantly sold (i.e. rapidly moving) p
 
 ==>
 
-select sales_order_details.product_no,description 
-from product_master,sales_order_details ;
-
--- inner join sales_order_details sod on sod.product_no = pm.product_no;
+-- select  distinct sod.product_no,description  8 row
+select  sod.product_no,description 
+from product_master pm 
+inner join sales_order_details sod on sod.product_no = pm.product_no;
 
 +------------+--------------+
 | product_no | description  |
@@ -599,9 +602,211 @@ where  description = 'trousers';
 e.List the products and orders from customers who have ordered less than 5 units of 'Pull Overs'.
 ................................................................................................
 
+==> 
 
 
 
+.......................................................................................................
 f. Find the products and their quantities for the orders placed by 'Ivan Bayross' and 'Mamta Muzumdar'.
+.......................................................................................................
+
+==> 
+select name,qty_ordered,description 
+from product_master pm 
+inner join sales_order_details sod on sod.product_no = pm.product_no
+inner join sales_order so on so.order_no = sod.order_no
+inner join client_master cm on cm.client_no = so.client_no
+where name ='Ivan Bayross' || name ="Mamta Muzumdar";
+-- where name in('Ivan Bayross',"Mamta Muzumdar");
+
++----------------+-------------+--------------+
+| name           | qty_ordered | description  |
++----------------+-------------+--------------+
+| Ivan Bayross   |           4 | T-Shirts     |
+| Ivan Bayross   |           2 | Denim Shirts |
+| Ivan Bayross   |           2 | Pull Overs   |
+| Ivan Bayross   |           1 | Cotton Jeans |
+| Ivan Bayross   |           2 | Skirts       |
+| Mamta Muzumdar |          10 | T-Shirts     |
++----------------+-------------+--------------+
+
+..................................................................................................
 g. Find the products and their quantities for the orders placed by ClientNo 'C00001' and 'C00002'.
+..................................................................................................
+
+==>
+select so.client_no,qty_ordered,description 
+from product_master pm 
+inner join sales_order_details sod on sod.product_no = pm.product_no
+inner join sales_order so on so.order_no = sod.order_no
+inner join client_master cm on cm.client_no = so.client_no
+where so.client_no ='C00001' || so.client_no ="C00002";
+
+
++-----------+-------------+--------------+
+| client_no | qty_ordered | description  |
++-----------+-------------+--------------+
+| C00001    |           4 | T-Shirts     |
+| C00001    |           2 | Denim Shirts |
+| C00001    |           2 | Pull Overs   |
+| C00001    |           1 | Cotton Jeans |
+| C00001    |           2 | Skirts       |
+| C00002    |          10 | T-Shirts     |
++-----------+-------------+--------------+
+
+
+
+
+////////////// ... THETA STYLE ... \\\\\\\\\\\\\\\\
+
+
+
+
+2. Exercises on Joins and Correlation:
+
+................................................................
+a. Find out the products, which have been sold to 'Ivan Bayross'.
+................................................................
+
+==>
+
+select name,description 
+from product_master ,client_master
+where  name = 'Ivan Bayross';
+
+
++--------------+--------------+
+| name         | description  |
++--------------+--------------+
+| Ivan Bayross | T-Shirts     |
+| Ivan Bayross | Shirts       |
+| Ivan Bayross | Cotton Jeans |
+| Ivan Bayross | Jeans        |
+| Ivan Bayross | Trousers     |
+| Ivan Bayross | Pull Overs   |
+| Ivan Bayross | Denim Shirts |
+| Ivan Bayross | Lycra Tops   |
+| Ivan Bayross | Skirts       |
++--------------+--------------+
+
+
+.................................................................................................
+b. Find out the products and their quantities that will have to be delivered in the current month.
+.................................................................................................
+
+==>
+
+-- select name,description 
+-- from product_master,sales_order_details 
+
+
+........................................................................................
+c. List the ProductNo and description of constantly sold (i.e. rapidly moving) products.
+........................................................................................
+
+==>
+
+select pm.product_no,description
+ from product_master pm, sales_order_details sod
+ where sod.product_no = pm.product_no;
+
++------------+--------------+
+| product_no | description  |
++------------+--------------+
+| P00001     | T-Shirts     |
+| P00001     | T-Shirts     |
+| P00001     | T-Shirts     |
+| P00001     | T-Shirts     |
+| P0345      | Shirts       |
+| P06734     | Cotton Jeans |
+| P07868     | Trousers     |
+| P07885     | Pull Overs   |
+| P07885     | Pull Overs   |
+| P07965     | Denim Shirts |
+| P07965     | Denim Shirts |
+| P07975     | Lycra Tops   |
+| P08865     | Skirts       |
++------------+--------------+
+
+
+...........................................................
+d.Find the names of clients who have purchased "Trousers".
+...........................................................
+
+==>
+
+select name,description 
+from product_master pm, client_master cm, sales_order so, sales_order_details sod
+where pm.product_no = sod.product_no 
+and sod.order_no = so.order_no
+and so.client_no = cm.client_no 
+and description = 'Trousers';
+ 
+
++---------------+-------------+
+| name          | description |
++---------------+-------------+
+| Chhaya Bankar | Trousers    |
++---------------+-------------+
+
+
+................................................................................................
+e.List the products and orders from customers who have ordered less than 5 units of 'Pull Overs'.
+................................................................................................
+
+==> 
+
+
+
+.......................................................................................................
+f. Find the products and their quantities for the orders placed by 'Ivan Bayross' and 'Mamta Muzumdar'.
+.......................................................................................................
+
+==> 
+select name,qty_ordered,description 
+from product_master pm, sales_order_details sod, sales_order so,client_master cm 
+where sod.product_no = pm.product_no
+and sod.order_no = so.order_no
+and  so.client_no = cm.client_no
+and name in('Ivan Bayross',"Mamta Muzumdar");
+
++----------------+-------------+--------------+
+| name           | qty_ordered | description  |
++----------------+-------------+--------------+
+| Ivan Bayross   |           4 | T-Shirts     |
+| Ivan Bayross   |           2 | Denim Shirts |
+| Ivan Bayross   |           2 | Pull Overs   |
+| Ivan Bayross   |           1 | Cotton Jeans |
+| Ivan Bayross   |           2 | Skirts       |
+| Mamta Muzumdar |          10 | T-Shirts     |
++----------------+-------------+--------------+
+
+..................................................................................................
+g. Find the products and their quantities for the orders placed by ClientNo 'C00001' and 'C00002'.
+..................................................................................................
+
+==>
+select so.client_no,qty_ordered,description 
+from product_master pm 
+inner join sales_order_details sod on sod.product_no = pm.product_no
+inner join sales_order so on so.order_no = sod.order_no
+inner join client_master cm on cm.client_no = so.client_no
+where so.client_no ='C00001' || so.client_no ="C00002";
+
+
++-----------+-------------+--------------+
+| client_no | qty_ordered | description  |
++-----------+-------------+--------------+
+| C00001    |           4 | T-Shirts     |
+| C00001    |           2 | Denim Shirts |
+| C00001    |           2 | Pull Overs   |
+| C00001    |           1 | Cotton Jeans |
+| C00001    |           2 | Skirts       |
+| C00002    |          10 | T-Shirts     |
++-----------+-------------+--------------+
+
+
+
+
+
 
