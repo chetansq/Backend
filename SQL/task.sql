@@ -579,6 +579,26 @@ where  order_date  like '%06%';
 | T-Shirts     |          10 | 2004-06-25 |
 +--------------+-------------+------------+
 
+.................................................
+
+select description,qty_ordered,order_status 
+from product_master pm
+inner join sales_order_details sod on sod.product_no = pm.product_no
+inner join sales_order so on so.order_no = sod.order_no
+where  order_status = 'fulfilled';
+
++--------------+-------------+--------------+
+| description  | qty_ordered | order_status |
++--------------+-------------+--------------+
+| Cotton Jeans |           1 | Fulfilled    |
+| Skirts       |           2 | Fulfilled    |
+| Trousers     |           3 | Fulfilled    |
+| Pull Overs   |           3 | Fulfilled    |
+| T-Shirts     |          10 | Fulfilled    |
+| Shirts       |           4 | Fulfilled    |
++--------------+-------------+--------------+
+
+
 ...... THETA STYLE ..........
 
 select description,qty_ordered, order_date 
@@ -596,6 +616,26 @@ and order_date like "%06%";
 | T-Shirts     |          10 | 2004-06-25 |
 +--------------+-------------+------------+
 
+................................................
+
+select description,qty_ordered, order_status 
+from product_master pm,sales_order_details sod,sales_order so 
+where sod.product_no = pm.product_no
+and so.order_no = sod.order_no
+and order_status = 'fulfilled';
+
+
++--------------+-------------+--------------+
+| description  | qty_ordered | order_status |
++--------------+-------------+--------------+
+| Cotton Jeans |           1 | Fulfilled    |
+| Skirts       |           2 | Fulfilled    |
+| Trousers     |           3 | Fulfilled    |
+| Pull Overs   |           3 | Fulfilled    |
+| T-Shirts     |          10 | Fulfilled    |
+| Shirts       |           4 | Fulfilled    |
++--------------+-------------+--------------+
+
 ........................................................................................
 c. List the ProductNo and description of constantly sold (i.e. rapidly moving) products.
 ........................................................................................
@@ -604,7 +644,11 @@ c. List the ProductNo and description of constantly sold (i.e. rapidly moving) p
 
 ==>
 
--- select  distinct sod.product_no,description  8 row
+-- use distinct 
+-- select  distinct sod.product_no,description 
+-- from product_master pm 
+-- inner join sales_order_details sod on sod.product_no = pm.product_no;
+
 select  sod.product_no,description 
 from product_master pm 
 inner join sales_order_details sod on sod.product_no = pm.product_no;
@@ -830,4 +874,27 @@ select * from sales_order_details;
 
 
 
+//////////////////////////////////////////////////////////////
+3. Exercise on Sub-queries:
+//////////////////////////////////////////////////////////////
+
+
+
+...........................................................................................
+a. Find the Product No and description of non-moving products i.e. products not being sold.
+...........................................................................................
+
+==>
+
+select sod.product_no,description,order_status 
+from product_master pm 
+inner join sales_order_details sod on sod.product_no = pm.product_no
+inner join sales_order so on so.order_no = sod.order_no
+where so.order_status ='In Process' or so.order_status ="Cancelled";
+
+
+b. List the customer Name, Address 1, Address2, City and PinCode for the client who has placed order no '019001'.
+c. List the client names that have placed orders before the month of May'02.
+d. List if the product 'Lycra Top' has been ordered by any client and print the Client_no, Name to whom it was sold.
+e. List the names of clients who have placed orders worth Rs. 10000 or more.
 
