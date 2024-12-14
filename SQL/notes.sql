@@ -796,23 +796,102 @@ inner join sales_order_details sod on sod.product_no = pm.product_no;
 -- inner join client_master cm on so.client_no = cm.client_no;
 
 
+//////////////////////////////////////////////////////////////////////////////////
+
+-- 12-12-24 thu
+
+............................. Group by ........................
+
+-- SYNTAX :-
+select agg_function (col_name(s))
+From tb-name
+where condition
+Group by col-name(s)
+
+-- EXAMPLE :-
+
+select city from client_master Group by city;
+
++-----------+
+| city      |
++-----------+
+| Mumbai    |
+| Madras    |
+| Bangalore |
+| Mangalore |
++-----------+
+
+select city,max(bal_due) "bal_due" from client_master Group by city;
+
++-----------+----------+
+| city      | bal_due  |
++-----------+----------+
+| Mumbai    | 15000.00 |
+| Madras    |     0.00 |
+| Bangalore |     0.00 |
+| Mangalore |     0.00 |
++-----------+----------+
+
+select city,sum(bal_due) "bal_due" from client_master Group by city;
+
++-----------+----------+
+| city      | bal_due  |
++-----------+----------+
+| Mumbai    | 22000.00 |
+| Madras    |     0.00 |
+| Bangalore |     0.00 |
+| Mangalore |     0.00 |
++-----------+----------+
+
+select city,sum(bal_due) "bal_due" from client_master
+where city = "mumbai" 
+ Group by city;
+
+
++--------+----------+
+| city   | bal_due  |
++--------+----------+
+| Mumbai | 22000.00 |
++--------+----------+
+
+select city,max(bal_due) "bal_due" from client_master
+where city = "mumbai" 
+ Group by city
+ having max(bal_due);
+
++--------+----------+
+| city   | bal_due  |
++--------+----------+
+| Mumbai | 15000.00 |
++--------+----------+
+
+select city,sum(bal_due) "bal_due" from client_master
+where city = "mumbai" 
+ Group by city
+ having max(bal_due);
+
+
++--------+----------+
+| city   | bal_due  |
++--------+----------+
+| Mumbai | 22000.00 |
++--------+----------+
+
+
+ update client_master set bal_due = 9500.00 where city = 'Madras';
+ update client_master set bal_due = 10500.00 where city = 'Bangalore';
+ update client_master set bal_due = 7000.00 where city = 'Mangalore';
 
 
 
+select city,sum(bal_due) "bal_due" from client_master
+ Group by city
+ having sum(bal_due) > 10000;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
++-----------+----------+
+| city      | bal_due  |
++-----------+----------+
+| Mumbai    | 22000.00 |
+| Bangalore | 10500.00 |
++-----------+----------+
