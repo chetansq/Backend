@@ -14,13 +14,13 @@ a. Print the description and total qty sold for each product.
 ==>
 
 
-select pm.description,so.order_status,pm.qty_on_hand "qty_on_hand" from product_master pm
+select description,so.order_status,pm.qty_on_hand  from product_master pm
 inner join sales_order_details sod on sod.product_no = pm.product_no
 inner join sales_order so on sod.order_no = so.order_no
 inner join client_master cm on cm.client_no= so.client_no
-where order_status = "fulfilled" 
- Group by order_status
- having sum(qty_on_hand);
+where order_status = "fulfilled" ;
+--  Group by order_status
+--  having sum(qty_on_hand);
 
 error..............
 
