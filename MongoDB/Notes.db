@@ -1,0 +1,97 @@
+***** MongoDB *****
+
+==> monogdb is a source-available cross-paltform document-oriented database program.
+==> classified as a nosql database program,mongodb uses JSON like documents with optional schemas.
+
+mongoDB ==> cassandra,hbase
+
+
+***** MongoDB Structure *****
+
+SQL Terms               MongoDB Terms
+-------------------------------------
+Database                Database
+Table                   Collection
+Entity/Row              Documents
+Column                  Key/Field
+Table Join              Embeded Documents
+Primary Key             Primary Key (Default key '_id' provide by iteself)
+
+
+************ Commands ************
+
+==> use employee ---> for switch dbs
+
+==> show collections ---> for show tables
+
+==> show dbs ---> for show database
+
+
+------------------------------------------------
+
+**|| CREATE COLLECTION (create Table) ||**
+
+==> db.createCollection("emp");
+
+-----------------------------------------------
+
+**|| INSERT ONE DOCUMENT INTO THE TABLE ||**
+
+Syntax :- 
+
+db.collection.insertOne()
+
+Example :-
+
+db.emp.insertOne({ empno:111,empname:'raj',empsal:10000 });
+
+
+==> db.emp.find() --> for record shows
+
+------------------------------------------------
+
+**|| INSERT DATA ||**
+
+Syntax :-
+
+db.test.insertMany([{},{},{}..])
+
+Example :-
+
+db.test.insertMany([
+    {name: 'aman',age:20,contact:9292191912},
+    {name: 'man',age:22},
+    {contact:9090302040},
+
+])
+
+
+db.data.insertMany([
+    {name:'aman', age:'20', contact:9292191912},
+    {name:'man', age:22, email:'aman@gmail.com'},
+    {name:'rajesh', age:24, contact:9090302040},
+    {name:'mayur', contact:9090302040, email:'mayur@gmail.com'},
+    {name:'jay', email:'jay@gmail.com'}
+])
+
+------------------------------------------
+
+**|| SKIP DATA ||**
+
+
+Example :-
+
+db.test.find({}).skip(2); ---> 2 data skip 
+
+
+**|| SORT DATA ||**
+
+db.test.find({}).sort('name');
+
+**|| COUNT ||**
+
+db.test.find().count();
+
+
+
+
