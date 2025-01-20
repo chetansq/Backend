@@ -11,6 +11,7 @@ app.get("/", (request, response) => {
     msg: "Welcome to Express Server",
   });
 });
+
 app.get("/home", (request, response) => {
   response.status(200);
 //   response.json({
