@@ -8,7 +8,7 @@ export class UserUtil {
 
     public static getAllUserFromDB(): Promise<IUser[]> {
         return new Promise((resolve, reject) => {
-            jsonfile.readfile(this.usersJsonPath, (err: any, data: any) => {
+            jsonfile.readFile(this.usersJsonPath, (err: any, data: any) => {
                 if (err) {
                     reject(err);
                 } else {
