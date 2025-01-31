@@ -1,13 +1,16 @@
 import express from "express";
 import userRouter from "./routes/UserRouter.js";
 
+import morgan from 'morgan'
+
 const hostName = "127.0.0.1";
-const port = 9900;
+const port = 9000;
 
 const app = express();
 
 // Router Configuration
 app.use("/api/users", userRouter);
+app.use(morgan('dev'))
 
 app.get("/", (request, response) => {
     response.status(200);
