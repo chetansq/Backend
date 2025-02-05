@@ -1,0 +1,83 @@
+........................................................................
+
+IContact Application using Express & MongoDB - Developed By Chetan Davra
+
+........................................................................
+
+
+DATABASE : IContacts
+Tables   : contacts,groups
+Editor   : VsCode
+
+
+
+|| -->  API Testing
+
+
+........................................................................
+
+|| --> Test the Server (Using ThanderClient | Postman | insomnia)
+
+........................................................................
+
+
+GET     -->     to get data from server     --> READ
+POST    -->     to create data at server    --> CREATE
+PUT     -->     to update data at server    --> UPDATE
+DELETE  -->     to delete dat at server     --> DELETE
+
+
+
+/** 1
+@usage : to get all contacts
+@methodm: GET
+@params : no-params
+@url : http://localhost:9999/contacts
+*/
+
+/**2
+@usage : get a contact
+@methodm: GET
+@params : contactId
+@url : http://localhost:9999/contacts/:contactId
+*/
+
+/**3
+@usage : create a contact
+@methodm: POST
+@params : name, imageUrl, email, mobile, company, title, groupId
+@url : http://localhost:9999/contacts/
+*/
+
+/**4
+@usage : update a contacts
+@methodm: PUT
+@params : name, imageUrl, email, mobile, company, title, groupId
+@url : http://localhost:9999/contacts/:contactId
+*/
+
+/**5
+@usage : Delete a contacts
+@methodm: Delete
+@params : contactId
+@url : http://localhost:9999/contacts/:contactId
+*/
+
+/**6
+@usage : Get all groups
+@methodm: GET
+@params : no-params
+@url : http://localhost:9999/groups
+*/
+
+/**7
+@usage : Get a groups
+@methodm: GET
+@params : groupId
+@url : http://localhost:9999/groups/:groupId
+*/
+
+
+
+
+
