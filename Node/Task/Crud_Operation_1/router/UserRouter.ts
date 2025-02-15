@@ -43,4 +43,24 @@ UserRouter.post("/",
         await UserController.createUser(request, response);
     })
 
+// get userid 
+
+UserRouter.get("/:userId", async (request: Request, response: Response) => {
+    await UserController.getuser(request, response)
+})
+
+
+// update
+
+UserRouter.put("/:userId", async (request: Request, response: Response) => {
+    await UserController.updateUser(request, response)
+})
+
+// delete
+
+UserRouter.delete("/:userId", async (request: Request, response: Response) => {
+    await UserController.deleteUser(request, response)
+})
+
+
 export default UserRouter
