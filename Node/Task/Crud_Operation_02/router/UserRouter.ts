@@ -21,11 +21,29 @@ UserRouter.get("/", async (request: Request, response: Response) => {
     await UserController.getAllUsers(request, response);
 });
 
+// create user (post)
 
 UserRouter.post("/", async (request: Request, response: Response) => {
     await UserController.createUser(request, response);
 });
 
+// get user id
+
+UserRouter.get("/:userId", async (request: Request, response: Response) => {
+    await UserController.getUserId(request, response);
+});
+
+// user update
+
+UserRouter.put("/:userId", async (request: Request, response: Response) => {
+    await UserController.updateUser(request, response);
+})
+
+// delete user
+
+UserRouter.delete("/:userId", async (request: Request, response: Response) => {
+    await UserController.deleteUser(request, response);
+});
 
 
 export default UserRouter
