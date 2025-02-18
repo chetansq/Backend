@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express"
-import * as USerController from "../controller/UserController"
+import * as UserController from "../controller/UserController"
 
 const UserRouter: Router = Router();
 
@@ -21,9 +21,8 @@ const UserRouter: Router = Router();
 // @url : http://127.0.0.1:9779/users
 
 UserRouter.get("/", async (request: Request, response: Response) => {
-    await USerController.getAllUsers(request, response);
+    await UserController.getAllUsers(request, response);
 })
-
 
 
 // @usage : create users
@@ -32,7 +31,32 @@ UserRouter.get("/", async (request: Request, response: Response) => {
 // @url : http://127.0.0.1:9779/users
 
 UserRouter.post("/", async (request: Request, response: Response) => {
-    await USerController.createUser(request, response);
+    await UserController.createUser(request, response);
+})
+
+
+// @usage : get userId
+// @method : GET
+// @params : userId
+// @url : http://127.0.0.1:9699/users/67b42a66725c3496c7a72d98
+
+UserRouter.get("/:userId", async (request: Request, response: Response) => {
+    await UserController.getUserId(request, response);
+})
+
+
+// @usage : update user
+// @method : PUT
+// @params : userId, username, email, password, imageUrl, isAdmin 
+// @url : http://127.0.0.1:9699/users/67b453605014e3de0066e8f6
+
+UserRouter.put("/:userId", async (request: Request, response: Response) => {
+    await UserController.updateUser(request, response);
+})
+
+
+UserRouter.delete("/:userId", async (request: Request, response: Response) => {
+    await UserController.deleteUser(request, response);
 })
 
 export default UserRouter   
