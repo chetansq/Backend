@@ -12,6 +12,10 @@ const dbName: string | null | undefined = process.env.MONGO_DB_DATABASE;
 
 const app: Application = express();
 
+// user configure
+app.use(express.json());
+app.use("/users", UserRouter);
+
 app.get("/", (request: Request, response: Response) => {
     response.status(200).json({
         msg: "Welcome express server"
@@ -35,4 +39,3 @@ if (port) {
     });
 }
 
-app.use("/api/users", UserRouter);
