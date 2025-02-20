@@ -1,4 +1,4 @@
-import express, { Request, Response, Application, response } from "express"
+import express, { Request, Response, Application } from "express"
 import UserRouter from "./router/UserRouter";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
