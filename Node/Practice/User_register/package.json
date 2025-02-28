@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.0",
+    "@types/gravatar": "^1.8.6",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.13.5",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "gravatar": "^1.8.2",
+    "jsonfile": "^6.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.11.0",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "name": "user_register",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
