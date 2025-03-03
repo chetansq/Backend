@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { IUser } from "../model/IUser";
 import UserTable from "../database/UserSchema";
-import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
 import gravatar from "gravatar";
 import { validationResult } from "express-validator";
@@ -88,38 +87,93 @@ export const getAllUsers = async (request: Request, response: Response) => {
 // };
 
 
+// export const registerUsers = async (request: Request, response: Response) => {
+//     const errors = validationResult(request);
+
+//     if (!errors.isEmpty()) {
+//         return response.status(400).json({ errors: errors.array() });
+//     }
+
+//     try {
+//         let { username, email, password } = request.body;
+
+//         // check if the user exists
+
+//         const userObj = await UserTable.findOne({ email: email });
+
+//         if (userObj) {
+//             return response.status(400).json({
+//                 error: "The user is already exists"
+//             });
+//         }
+
+//         // password encryption
+
+//         const slat = await bcryptjs.genSalt(10);
+//         const hashPassword = await bcryptjs.hash(password, slat);
+
+//         // gravatar url
+
+//         const imageUrl = gravatar.url(email, {
+//             size: "200",
+//             rating: "pg",
+//             default: "mm"
+//         });
+
+//         // insert to db
+
+//         const newUser: IUser = {
+//             username: username,
+//             email: email,
+//             password: hashPassword,
+//             imageUrl: imageUrl,
+//             isAdmin: false
+//         };
+
+//         let theuser: IUser | null | undefined = await new UserTable(newUser).save();
+
+//         if (theuser) {
+//             return response.status(200).json({
+//                 data: theuser,
+//                 msg: "User is created ✅"
+//             });
+//         }
+//     } catch (error: any) {
+//         response.status(500).json({
+//             error: error.message
+//         });
+//     };
+// };
+
 export const registerUsers = async (request: Request, response: Response) => {
     const errors = validationResult(request);
+
+    // express validation error handling
 
     if (!errors.isEmpty()) {
         return response.status(400).json({ errors: errors.array() });
     }
 
     try {
+
         let { username, email, password } = request.body;
 
         // check if the user exists
 
-        const userObj = await UserTable.findOne({ email: email });
+        const userObj: IUser | undefined | null = await UserTable.findOne({ email: email });
 
         if (userObj) {
-            return response.status(400).json({
-                error: "The user is already exists"
-            });
+            return response.status(400).json({ error: "The user is already exists" });
         }
 
         // password encryption
 
-        const slat = await bcryptjs.genSalt(10);
-        const hashPassword = await bcryptjs.hash(password, slat);
+        const salt = await bcryptjs.genSalt(10);
+        const hashPassword = await bcryptjs.hash(password, salt);
 
         // gravatar url
 
-        const imageUrl = gravatar.url(email, {
-            size: "200",
-            rating: "pg",
-            default: "mm"
-        });
+        const imageUrl = gravatar.url(email, { size: '200', rating: "pg", default: 'mm' });
 
         // insert to db
 
@@ -131,17 +185,16 @@ export const registerUsers = async (request: Request, response: Response) => {
             isAdmin: false
         };
 
-        let theuser: IUser | null | undefined = await new UserTable(newUser).save();
+        let theuser: IUser | undefined | null = await new UserTable(newUser).save();
 
         if (theuser) {
             return response.status(200).json({
                 data: theuser,
-                msg: "User is created ✅"
+                msg: "User is created"
             });
         }
+
     } catch (error: any) {
-        response.status(500).json({
-            error: error.message
-        });
+        return response.status(500).json({ error: error.message });
     };
-};
+}
