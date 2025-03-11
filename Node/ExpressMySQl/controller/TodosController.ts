@@ -15,12 +15,10 @@ export const getAllToDo: any = async (request: Request, response: Response) => {
         });
     }
 
-
     return response.status(500).json({
         msg: "not found..! ❌",
         data: null
     });
-
 
 }
 
@@ -76,7 +74,6 @@ export const createToDo: any = async (request: Request, response: Response) => {
 
 // delete todos
 
-
 export const deleteToDo: any = async (request: Request, response: Response) => {
     let { deleteId } = request.params;
     let todos = await Todos.destroy({ where: { deleteId } });
@@ -94,7 +91,9 @@ export const deleteToDo: any = async (request: Request, response: Response) => {
     });
 }
 
+
 // update todos
+
 export const updateToDo: any = async (request: Request, response: Response) => {
     let { updateId } = request.params;
     let todos = await Todos.findAll();
